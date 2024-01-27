@@ -1,4 +1,9 @@
-class Employee_ {
+/*----------------------------------------------------------------------------------------------
+@Author:        	Kanupriya Rathod
+@Date:              27-01-2024
+@Description:   	Class to store employee collection
+----------------------------------------------------------------------------------------------*/
+public class Employee_ {
     private String positionID;
     private String timeInDay;
     private String timeOutDay;
@@ -6,6 +11,7 @@ class Employee_ {
     private String fileNumber;
     private String timeHours;
 
+    //created employee_ constructor with parameter positionID,timeInDay,timeOutDay,employeeName,fileNumber,timeHours
     public Employee_(String positionID, String timeInDay, String timeOutDay, String employeeName, String fileNumber,
         String timeHours) {
         this.positionID = positionID;
@@ -15,7 +21,7 @@ class Employee_ {
         this.fileNumber = fileNumber;
         this.timeHours = timeHours;
     }
-
+    //created getters and setters for parameters
     public String getPositionID() {
         return positionID;
     }

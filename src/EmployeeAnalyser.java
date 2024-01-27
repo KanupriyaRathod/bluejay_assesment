@@ -1,3 +1,9 @@
+
+/*----------------------------------------------------------------------------------------------
+@Author:        	Kanupriya Rathod
+@Date:              27-01-2024
+@Description:   	Class for Employee Analyser
+----------------------------------------------------------------------------------------------*/
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -8,10 +14,11 @@ public class EmployeeAnalyser {
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy hh:mm a");
 
     public static void main(String[] args) {
+        // replace path with actual file path
         String filename = "C:\\Users\\kanup\\vs code 's code\\src\\Assignment_Timecard.csv";
 
         List<Employee_> employees = readEmployeeData(filename);
-     
+
         List<Employee_> employeesWith7ConsecutiveDays = getEmployeesWith7ConsecutiveDays(employees);
         System.out.println(
                 "---------------------------------------------------------------------------------------------");
@@ -62,14 +69,14 @@ public class EmployeeAnalyser {
                 "---------------------------------------------------------------------------------------------");
 
     }
-
+    //method to read file data
     private static List<Employee_> readEmployeeData(String filename) {
         List<Employee_> employees = new ArrayList<>();
 
         try {
             BufferedReader br = new BufferedReader(new FileReader(filename));
             String line = " ";
-         
+
             while ((line = br.readLine()) != null) {
                 String newLine = line.replaceAll(", ", " ");
                 // System.out.println(newLine);
@@ -96,14 +103,15 @@ public class EmployeeAnalyser {
                             timeHours);
                     employees.add(employee);
                 }
-              
+
             }
             br.close();
         } catch (IOException e) {
         }
         return employees;
     }
-
+    
+    //method to parse date
     private static String[] parseDate(String dateString) {
         try {
             String newDateString[] = dateString.split("/");
@@ -139,10 +147,11 @@ public class EmployeeAnalyser {
 
         return result;
     }
-
+    
+    //method to check consecutive days
     private static boolean isConsecutiveDays(List<Employee_> employees) {
         for (int i = 1; i < employees.size(); i++) {
-           
+
             int expectedDay = Integer.parseInt(employees.get(i - 1).getTimeInDay());
             int actualDay = Integer.parseInt(employees.get(i).getTimeInDay());
             if (!(expectedDay == actualDay)) {
@@ -152,6 +161,7 @@ public class EmployeeAnalyser {
         return true;
     }
 
+    //method to check employees with less than 10 hrs b/w shift
     private static List<Employee_> getEmployeesWithLessThan10HoursBetweenShifts(List<Employee_> employees) {
         List<Employee_> result = new ArrayList<>();
         Map<String, List<Employee_>> employeesByFileNumber = new HashMap<>();
@@ -179,7 +189,7 @@ public class EmployeeAnalyser {
         }
         return result;
     }
-
+    
     private static long minInShift(String timing) {
         String timeArray[] = timing.split(":");
         String hours = timeArray[0];
@@ -187,6 +197,7 @@ public class EmployeeAnalyser {
         return Long.parseLong(hours) * 60 + Long.parseLong(min);
     }
 
+    //method to check employees with more than 14 hrs in a shift
     private static List<Employee_> getEmployeesWithMoreThan14HoursInSingleShift(List<Employee_> employees) {
         long hoursInShift = 0;
         int totalHours = 0;
